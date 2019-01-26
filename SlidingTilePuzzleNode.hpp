@@ -1,4 +1,5 @@
 #pragma once
+#include <ostream>
 #include <stdexcept>
 #include <unordered_map>
 #include <vector>
@@ -43,6 +44,10 @@ public:
 	std::size_t getHeight() const { return m_height;  };
 	SlidingTilePuzzleNodeRowSelector operator[](size_t y);
 	
+    friend std::ostream& operator<<(
+        std::ostream& out,
+        SlidingTilePuzzleNode & node);
+
 private:
 
 	std::vector<int> m_state;
@@ -54,7 +59,6 @@ private:
 	// Let ...RowSelector access m_state:
 	friend class SlidingTilePuzzleNodeRowSelector;
 
-	inline int readTile(std::size_t x, std::size_t y) const;
 	inline std::size_t getX() const;
 	inline std::size_t getY() const;
 };
