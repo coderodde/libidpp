@@ -20,13 +20,16 @@ static SlidingTilePuzzleNode createSourceNode(
 
 int main()
 {
-    SlidingTilePuzzleNode node(3, 3);
-    std::cout << node;
+    SlidingTilePuzzleNode node(4, 4);
+
     try {
         while (true) {
-            std::cout << node << '\n';
-            char choice = static_cast<char>(std::cin.get());
+            std::cout << "----\n" 
+                      << node 
+                      << '\n';
 
+            char choice = static_cast<char>(std::cin.get());
+            
             switch (choice) {   
             case 'u':
                 node = node.slideUp();
