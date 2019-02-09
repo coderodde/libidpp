@@ -26,15 +26,17 @@ void SlidingTilePuzzleNode::checkOnSlideDown() const
 void SlidingTilePuzzleNode::checkOnSlideLeft() const 
 {
     if (m_zero_tile_x == 0) {
-        ZeroTileOutsideException exception(std::string("'m_zero_tile_x == 0' upon slideLeft"));
+        ZeroTileOutsideException exception(
+            std::string("'m_zero_tile_x == 0' upon slideLeft"));
         throw exception;
     }
 }
 
 void SlidingTilePuzzleNode::checkOnSlideRight() const 
 {
-    if (m_zero_tile_y == m_width - 1) {
-        ZeroTileOutsideException exception(std::string("'m_zero_tile_x == m_width - 1' upon slideRight"));
+    if (m_zero_tile_x == m_width - 1) {
+        ZeroTileOutsideException exception(
+            std::string("'m_zero_tile_x == m_width - 1' upon slideRight"));
         throw exception;
     }
 }
@@ -133,7 +135,7 @@ SlidingTilePuzzleNode SlidingTilePuzzleNode::slideUp()
     auto x2 = m_zero_tile_x;
     auto y2 = m_zero_tile_y - 1;
     std::swap(node[m_zero_tile_y][m_zero_tile_x], node[y2][x2]);
-    setZeroTileCoordinates(x2, y2);
+    node.setZeroTileCoordinates(x2, y2);
 	return node;
 }
 
@@ -144,7 +146,7 @@ SlidingTilePuzzleNode SlidingTilePuzzleNode::slideDown()
 	auto x2 = m_zero_tile_x;
     auto y2 = m_zero_tile_y + 1;
     std::swap(node[m_zero_tile_y][m_zero_tile_x], node[y2][x2]);
-    setZeroTileCoordinates(x2, y2);
+    node.setZeroTileCoordinates(x2, y2);
 	return node;
 }
 
@@ -155,7 +157,7 @@ SlidingTilePuzzleNode SlidingTilePuzzleNode::slideLeft()
     auto x2 = m_zero_tile_x - 1;
     auto y2 = m_zero_tile_y;
     std::swap(node[m_zero_tile_y][m_zero_tile_x], node[y2][x2]);
-    setZeroTileCoordinates(x2, y2);
+    node.setZeroTileCoordinates(x2, y2);
     return node;
 }
 
@@ -166,7 +168,7 @@ SlidingTilePuzzleNode SlidingTilePuzzleNode::slideRight()
     auto x2 = m_zero_tile_x + 1;
     auto y2 = m_zero_tile_y;
     std::swap(node[m_zero_tile_y][m_zero_tile_x], node[y2][x2]);
-    setZeroTileCoordinates(x2, y2);
+    node.setZeroTileCoordinates(x2, y2);
     return node;
 }
 
@@ -195,7 +197,7 @@ std::ostream& operator<<(std::ostream& out, SlidingTilePuzzleNode& node)
     const auto max_tile_number = node.getHeight() * node.getWidth() - 1;
     const auto max_tile_number_length = 
         static_cast<std::size_t>(
-            std::floor(std::log10(max_tile_number)) + 1); // Space between adjacent entries.
+            std::floor(std::log10(max_tile_number)) + 1);
     
     for (auto y = 0; y < node.getHeight(); y++) {
         if (y > 0) {
@@ -207,7 +209,9 @@ std::ostream& operator<<(std::ostream& out, SlidingTilePuzzleNode& node)
                 out << " ";
             }
 
-            out << std::setfill(' ') << node[y][x];
+            out << std::setfill(' ')
+                << std::setw(max_tile_number_length) 
+                << node[y][x];
         }
     }
 

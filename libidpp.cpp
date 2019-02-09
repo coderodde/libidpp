@@ -1,5 +1,6 @@
 #include "SlidingTilePuzzleNode.hpp"
 #include <iostream>
+#include <sstream>
 
 static SlidingTilePuzzleNode createSourceNode(
     std::size_t width, 
@@ -21,14 +22,19 @@ static SlidingTilePuzzleNode createSourceNode(
 int main()
 {
     SlidingTilePuzzleNode node(4, 4);
-
+    std::string bar(11, '-');
     try {
         while (true) {
-            std::cout << "----\n" 
-                      << node 
-                      << '\n';
+            std::cout 
+                << node
+                << "\n"
+                << bar
+                << '\n';
 
             char choice = static_cast<char>(std::cin.get());
+            // Ignore all the leftover chars:
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             
             switch (choice) {   
             case 'u':
